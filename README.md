@@ -30,7 +30,7 @@ When a supplier invoice arrives by email, this pipeline extracts the data, logs 
 (binary → base64)
         ↓
 [HTTP Request]
-→ python-runner/extractInvoice
+→ Python microservice (/extractInvoice)
 (pymupdf → structured JSON)
         ↓
 [JS Code Node — ParseJSON]
@@ -63,7 +63,7 @@ When a supplier invoice arrives by email, this pipeline extracts the data, logs 
 | Data storage | Google Sheets API (relational structure) |
 | File storage | Google Drive API |
 | Email | Gmail API · OAuth2 |
-| Infrastructure | Docker · Nginx · Hetzner VPS · SSL |
+| Infrastructure | Docker · Nginx · self-hosted VPS · SSL |
 
 ---
 
@@ -115,9 +115,9 @@ The ID column uses `=ROW()-1` — predictable, no UUID dependency, joinable acro
 
 ## 🚀 Deployment
 
-The full stack runs on a Hetzner VPS:
+The full stack runs on a self-hosted VPS:
 - n8n self-hosted via Docker Compose
-- python-runner microservice (FastAPI + pymupdf) in a separate container
+- Python microservice (FastAPI + pymupdf) in a separate container
 - Nginx reverse proxy with SSL (Let's Encrypt)
 
 ---
